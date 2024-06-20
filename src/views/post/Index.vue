@@ -6,6 +6,7 @@
                 <router-link :to="{ name: 'post.create' }" class="btn btn-sm btn-primary">Create Post</router-link>
             </div>
             <div class="card-body">
+                <input type="text" v-model="search" class="form-control form-control-sm mb-3">
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
@@ -56,7 +57,8 @@ export default {
                 })
         })
 
-        // sorted
+        // search
+        
 
         // methode delete
         function postDelete(id) {
