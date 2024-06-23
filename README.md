@@ -1,4 +1,4 @@
-# blog-laravel-8
+# Blog VUE JS 3
 
 ## Project setup
 ```
