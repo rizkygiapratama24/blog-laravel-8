@@ -6,7 +6,10 @@
                 <router-link :to="{ name: 'post.create' }" class="btn btn-sm btn-primary">Create Post</router-link>
             </div>
             <div class="card-body">
-                <input type="text" v-model="search" class="form-control form-control-sm mb-3">
+                <div class="d-flex align-items-center justify-content-end mb-3 gx-2">
+                    <label for="" class="form-label text-sm mx-2 mb-0">Search</label>
+                    <input type="text" v-model="searchposts" class="form-control form-control-sm w-25">
+                </div>
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
@@ -17,7 +20,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(post, index) in posts" :key="index">
+                        <tr v-for="(post, index) in searchedPosts" :key="index">
                             <td>{{ index + 1 }}</td>
                             <td>{{ post.title }}</td>
                             <td>{{ post.body }}</td>
@@ -37,7 +40,7 @@
 
 <script>
 import axios from 'axios';
-import { onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 export default {
     name: 'INDEX',
 
@@ -58,7 +61,19 @@ export default {
         })
 
         // search
-        
+        const searchposts = ref("");
+        const searchedPosts = computed(() => {
+            return posts.value.filter((post) => {
+                return (
+                    post.title
+                    .toLowerCase()
+                    .indexOf(searchposts.value.toLowerCase()) != -1 ||
+                    post.body
+                    .toLowerCase()
+                    .indexOf(searchposts.value.toLowerCase()) != -1
+                )
+            })
+        })
 
         // methode delete
         function postDelete(id) {
@@ -75,7 +90,9 @@ export default {
         // return
         return {
             posts,
-            postDelete
+            postDelete,
+            searchposts,
+            searchedPosts
         }
     }
 }
