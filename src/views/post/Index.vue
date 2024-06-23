@@ -66,25 +66,27 @@ export default {
             return posts.value.filter((post) => {
                 return (
                     post.title
-                    .toLowerCase()
-                    .indexOf(searchposts.value.toLowerCase()) != -1 ||
+                        .toLowerCase()
+                        .indexOf(searchposts.value.toLowerCase()) != -1 ||
                     post.body
-                    .toLowerCase()
-                    .indexOf(searchposts.value.toLowerCase()) != -1
+                        .toLowerCase()
+                        .indexOf(searchposts.value.toLowerCase()) != -1
                 )
             })
         })
 
         // methode delete
         function postDelete(id) {
-            // delete data post by ID
-            axios.delete(`http://localhost:8000/api/blogs/${id}`)
-                .then(() => {
-                    // splice posts
-                    posts.value.splice(posts.value.indexOf(id), 1);
-                }).catch(error => {
-                    console.log(error.response.data)
+            if (confirm('Yakin Ingin Dihapus ?')) {
+                // delete data post by ID
+                axios.delete(`http://localhost:8000/api/blogs/${id}`)
+                    .then(() => {
+                        // splice posts
+                        posts.value.splice(posts.value.indexOf(id), 1);
+                    }).catch(error => {
+                        console.log(error.response.data)
                 })
+            }
         }
 
         // return
