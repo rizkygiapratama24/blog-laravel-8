@@ -20,6 +20,9 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr v-if="!searchedPosts.length">
+                            <td colspan="4" class="text-center">Data Kosong</td>
+                        </tr>
                         <tr v-for="(post, index) in searchedPosts" :key="index">
                             <td>{{ index + 1 }}</td>
                             <td>{{ post.title }}</td>
@@ -43,7 +46,6 @@ import axios from 'axios';
 import { computed, onMounted, ref } from 'vue';
 export default {
     name: 'INDEX',
-
     setup() {
         // reactive post
         let posts = ref([])
@@ -75,7 +77,7 @@ export default {
             })
         })
 
-        // methode delete
+        // method delete
         function postDelete(id) {
             if (confirm('Yakin Ingin Dihapus ?')) {
                 // delete data post by ID
@@ -85,7 +87,7 @@ export default {
                         posts.value.splice(posts.value.indexOf(id), 1);
                     }).catch(error => {
                         console.log(error.response.data)
-                })
+                    })
             }
         }
 

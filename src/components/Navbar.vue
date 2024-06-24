@@ -13,7 +13,7 @@
                         <router-link :to="{ name: 'post.index' }" class="nav-link active" aria-current="page">Home</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link :to="{ name: 'post.index' }" class="nav-link">Kategori</router-link>
+                        <router-link :to="{ name: 'category.index' }" class="nav-link">Category</router-link>
                     </li>
                 </ul>
             </div>

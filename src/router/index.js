@@ -17,6 +17,24 @@ const routes = [
         path: '/edit/:id',
         name: 'post.edit',
         component: () => import( /* webpackChunkName: "post.edit" */ '@/views/post/Edit.vue')
+    },
+    
+    {
+        path: '/category',
+        name: 'category.index',
+        component: () => import( /* webpackChunkName: "category.index" */ '@/views/category/Index.vue')
+    },
+
+    {
+        path: '/category/create',
+        name: 'category.create',
+        component: () => import( /* webpackChunkName: "category.create" */ '@/views/category/Create.vue')
+    },
+
+    {
+        path: '/category/edit/:id',
+        name: 'category.edit',
+        component: () => import( /* webpackChunkName: "category.edit" */ '@/views/category/Edit.vue')
     }
 ]
 
