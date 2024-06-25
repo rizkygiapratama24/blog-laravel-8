@@ -7,12 +7,19 @@
                     <router-link :to="{ name: 'post.index' }" class="btn btn-sm btn-primary">Back to Post</router-link>
                 </div>
                 <div class="card-body">
-                    <div class="form-group">
+                    <div class="form-group mb-3">
                         <label for="title" class="form-label text-sm">Title</label>
                         <input type="text" v-model="post.title" class="form-control form-control-sm">
                         <div v-if="validation.title" class="text-danger">{{ validation.title[0] }}</div>
                     </div>
-                    <div class="form-group mb-2">
+                    <div class="form-group mb-3">
+                        <label for="category_id" class="form-label text-sm">Category</label>
+                        <select v-model="post.category_id" class="form-select form-select-sm">
+                            <option v-for="category in categories" v-bind:value="category.id" v-bind:key="category.id">{{ category.category_name }}</option>
+                        </select>
+                        <div v-if="validation.category_id" class="text-danger">{{ validation.category_id[0] }}</div>
+                    </div>
+                    <div class="form-group mb-3">
                         <label for="body" class="form-label text-sm">Content</label>
                         <textarea v-model="post.body" class="form-control form-control-sm"></textarea>
                         <div v-if="validation.body" class="text-danger">{{ validation.body[0] }}</div>
@@ -33,10 +40,26 @@ export default {
     name: 'EDIT',
 
     setup() {
+        // reactive post
+        let categories = ref([])
+
+        // mounted
+        onMounted(() => {
+            // get API from laravel backend
+            axios.get('http://localhost:8000/api/category')
+                .then(response => {
+                    //assign state categories with response data
+                    categories.value = response.data.data
+                }).catch(error => {
+                    console.log(error.response.data)
+                })
+        })
+
         // state posts
         const post = reactive({
             title: '',
-            body: ''
+            body: '',
+            category_id: ''
         })
 
         // vue validation
@@ -56,6 +79,7 @@ export default {
                 //assign state posts with response data
                 post.title = response.data.data.title
                 post.body = response.data.data.body
+                post.category_id = response.data.data.category_id
             }).catch(error => {
                 console.log(error.response.data)
             })
@@ -65,10 +89,12 @@ export default {
         function update() {
             let title = post.title
             let body = post.body
+            let category_id = post.category_id
 
             axios.put(`http://localhost:8000/api/blogs/${route.params.id}`, {
                 title: title,
-                body: body
+                body: body,
+                category_id: category_id
             }).then(() => {
                 // redirect to index
                 router.push({
@@ -84,7 +110,8 @@ export default {
             router,
             route,
             validation,
-            update
+            update,
+            categories
         }
     }
 }

@@ -16,6 +16,7 @@
                             <th>NO</th>
                             <th>TITLE</th>
                             <th>CONTENT</th>
+                            <th>CATEGORY</th>
                             <th>ACTION</th>
                         </tr>
                     </thead>
@@ -27,6 +28,7 @@
                             <td>{{ index + 1 }}</td>
                             <td>{{ post.title }}</td>
                             <td>{{ post.body }}</td>
+                            <td>{{ post.category_name }}</td>
                             <td>
                                 <router-link :to="{ name: 'post.edit', params: { id: post.id } }"
                                     class="btn btn-sm btn-warning mx-2">Edit</router-link>
