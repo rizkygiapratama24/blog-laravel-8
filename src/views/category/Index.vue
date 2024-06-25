@@ -20,9 +20,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-if="!searchedCategories.length">
-                            <td colspan="4" class="text-center">Data Kosong</td>
-                        </tr>
                         <tr v-for="(category, index) in searchedCategories" :key="index">
                             <td>{{ index + 1 }}</td>
                             <td>{{ category.category_name }}</td>
@@ -32,6 +29,9 @@
                                 <button @click.prevent="categoryDelete(category.id)"
                                     class="btn btn-sm btn-danger">Delete</button>
                             </td>
+                        </tr>
+                        <tr v-if="!searchedCategories.length">
+                            <td colspan="4" class="text-center">Data Kosong</td>
                         </tr>
                     </tbody>
                 </table>
