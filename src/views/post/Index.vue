@@ -21,9 +21,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-if="!searchedPosts.length">
-                            <td colspan="4" class="text-center">Data Kosong</td>
-                        </tr>
                         <tr v-for="(post, index) in searchedPosts" :key="index">
                             <td>{{ index + 1 }}</td>
                             <td>{{ post.title }}</td>
@@ -35,6 +32,9 @@
                                 <button @click.prevent="postDelete(post.id)"
                                     class="btn btn-sm btn-danger">Delete</button>
                             </td>
+                        </tr>
+                        <tr v-if="!searchedPosts.length">
+                            <td colspan="5" class="text-center">Data Kosong</td>
                         </tr>
                     </tbody>
                 </table>
