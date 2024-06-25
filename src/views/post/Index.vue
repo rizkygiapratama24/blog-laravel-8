@@ -64,7 +64,7 @@ export default {
                 })
         })
 
-        // search
+        // searched post
         const searchposts = ref("");
         const searchedPosts = computed(() => {
             return posts.value.filter((post) => {
